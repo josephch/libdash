@@ -52,6 +52,7 @@ namespace dash
                 uint32_t                                GetId                           ()  const;
                 uint32_t                                GetGroup                        ()  const;
                 const std::string&                      GetLang                         ()  const;
+                const std::string&                      GetLabel                         ()  const;
                 const std::string&                      GetContentType                  ()  const;
                 const std::string&                      GetPar                          ()  const;
                 uint32_t                                GetMinBandwidth                 ()  const;
@@ -88,6 +89,7 @@ namespace dash
                 void    SetId                       (uint32_t id);
                 void    SetGroup                    (uint32_t group);
                 void    SetLang                     (const std::string& lang);
+                void    SetLabel                     (const std::string& label);
                 void    SetContentType              (const std::string& contentType);
                 void    SetPar                      (const std::string& par);
                 void    SetMinBandwidth             (uint32_t minBandwidth);
@@ -121,6 +123,7 @@ namespace dash
                 uint32_t                        id;
                 uint32_t                        group;
                 std::string                     lang;
+                std::string                     label;
                 std::string                     contentType;
                 std::string                     par;
                 uint32_t                        minBandwidth;

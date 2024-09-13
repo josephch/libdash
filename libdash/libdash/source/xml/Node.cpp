@@ -654,6 +654,11 @@ dash::mpd::AdaptationSet*                   Node::ToAdaptationSet       ()  cons
 
     for(size_t i = 0; i < subNodes.size(); i++)
     {
+        if (subNodes.at(i)->GetName() == "Label")
+        {
+            adaptationSet->SetLabel(subNodes.at(i)->GetText());
+            continue;
+        }
         if (subNodes.at(i)->GetName() == "Accessibility")
         {
             adaptationSet->AddAccessibity(subNodes.at(i)->ToDescriptor());

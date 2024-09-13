@@ -22,6 +22,7 @@ AdaptationSet::AdaptationSet    () :
                 xlinkActuate("onRequest"),
                 id(0),
                 lang(""),
+                label(""),
                 contentType(""),
                 par(""),
                 minBandwidth(0),
@@ -199,9 +200,17 @@ const std::string&                      AdaptationSet::GetLang                  
 {
     return this->lang;
 }
+const std::string&                      AdaptationSet::GetLabel                          ()  const
+{
+    return this->label;
+}
 void                                    AdaptationSet::SetLang                          (const std::string& lang)
 {
     this->lang = lang;
+}
+void                                    AdaptationSet::SetLabel                          (const std::string& label)
+{
+    this->label = label;
 }
 const std::string&                      AdaptationSet::GetContentType                   ()  const
 {

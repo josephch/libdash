@@ -197,6 +197,11 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                      GetLang                         ()  const = 0;
+                 /**
+                 *  Returns a reference to a string that declares the label for this Adaptation Set. The syntax and semantics according to IETF RFC 5646 shall be used.\n
+                 *  @return     a reference to a string
+                 */
+                virtual const std::string&                      GetLabel                        ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies the media content component type for this Adaptation Set. 
