@@ -289,6 +289,45 @@ dash::mpd::URLType*                         Node::ToURLType             (HTTPTra
     urlType->AddRawAttributes(this->attributes);
     return urlType;
 }
+dash::mpd::FCS*                        Node::ToFCS            ()  const
+{
+    dash::mpd::FCS* fcs = new dash::mpd::FCS();
+
+    if (this->HasAttribute("t"))
+    {
+        fcs->SetStartTime(strtoul(this->GetAttributeValue("t").c_str(), NULL, 10));
+    }
+    if (this->HasAttribute("d"))
+    {
+        fcs->SetDuration(strtoul(this->GetAttributeValue("d").c_str(), NULL, 10));
+    }
+
+    fcs->AddRawAttributes(this->attributes);
+    return fcs;
+}
+dash::mpd::FailoverContent*                 Node::ToFailoverContent     ()  const
+{
+    dash::mpd::FailoverContent* failoverContent = new dash::mpd::FailoverContent();
+
+	if (this->HasAttribute("valid"))
+    {
+        failoverContent->SetValid(dash::helpers::String::ToBool(this->GetAttributeValue("valid")));
+    }
+
+    std::vector<Node *> subNodes = this->GetSubNodes();
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        if (subNodes.at(i)->GetName() == "FCS")
+        {
+            failoverContent->SetFCS(subNodes.at(i)->ToFCS());
+            continue;
+        }
+        failoverContent->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    failoverContent->AddRawAttributes(this->attributes);
+    return failoverContent;
+}
 dash::mpd::SegmentBase*                     Node::ToSegmentBase         ()  const
 {
     dash::mpd::SegmentBase* segmentBase = new dash::mpd::SegmentBase();
@@ -298,6 +337,11 @@ dash::mpd::SegmentBase*                     Node::ToSegmentBase         ()  cons
 
     for(size_t i = 0; i < subNodes.size(); i++)
     {
+		if (subNodes.at(i)->GetName() == "FailoverContent")
+        {
+            segmentBase->SetFailoverContent(subNodes.at(i)->ToFailoverContent());
+            continue;
+        }
         if (subNodes.at(i)->GetName() != "Initialization" && subNodes.at(i)->GetName() != "RepresentationIndex")
             segmentBase->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
     }

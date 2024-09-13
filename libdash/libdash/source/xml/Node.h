@@ -22,6 +22,8 @@
 #include "../mpd/UTCTiming.h"
 #include "../mpd/ContentComponent.h"
 #include "../mpd/Descriptor.h"
+#include "../mpd/FailoverContent.h"
+#include "../mpd/FCS.h"
 #include "../mpd/Metrics.h"
 #include "../mpd/MPD.h"
 #include "../mpd/MultipleSegmentBase.h"
@@ -85,6 +87,8 @@ namespace dash
                 dash::mpd::UTCTiming*                       ToUTCTiming             ()  const;
                 dash::mpd::ContentComponent*                ToContentComponent      ()  const;
                 dash::mpd::Descriptor*                      ToDescriptor            ()  const;
+		dash::mpd::FailoverContent*                 ToFailoverContent       ()  const;
+		dash::mpd::FCS*                             ToFCS                   ()  const;
                 dash::mpd::Metrics*                         ToMetrics               ()  const;
                 dash::mpd::Period*                          ToPeriod                ()  const;
                 dash::mpd::ProgramInformation*              ToProgramInformation    ()  const;

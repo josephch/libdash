@@ -16,6 +16,7 @@ using namespace dash::mpd;
 SegmentBase::SegmentBase    ()  :
                 initialization(NULL),
                 representationIndex(NULL),
+		failoverContent(NULL),
                 timescale(1),
                 presentationTimeOffset(0),
                 indexRange(""),
@@ -43,6 +44,14 @@ const IURLType*     SegmentBase::GetRepresentationIndex     ()  const
 void                SegmentBase::SetRepresentationIndex     (URLType *representationIndex)
 {
     this->representationIndex = representationIndex;
+}
+const IFailoverContent*     SegmentBase::GetFailoverContent     ()  const
+{
+    return this->failoverContent;
+}
+void                        SegmentBase::SetFailoverContent     (FailoverContent *failoverContent)
+{
+    this->failoverContent = failoverContent;
 }
 uint32_t            SegmentBase::GetTimescale               ()  const
 {

@@ -27,6 +27,7 @@
 
 #include "IMPDElement.h"
 #include "IURLType.h"
+#include "IFailoverContent.h"
 
 namespace dash
 {
@@ -48,6 +49,13 @@ namespace dash
                  *  @return     a pointer to dash::mpd::IURLType object
                  */
                 virtual const IURLType*     GetRepresentationIndex      ()  const = 0;
+
+
+		/**
+                 *  Returns a pointer to a dash::mpd::IFailoverContent object that contain failover content.
+                 *  @return     a pointer to dash::mpd::IFailoverContent object
+                 */
+                virtual const IFailoverContent*     GetFailoverContent      ()  const = 0;
 
                 /**
                  *  Returns an integer representing a timescale that specifies the timescale in units per seconds 

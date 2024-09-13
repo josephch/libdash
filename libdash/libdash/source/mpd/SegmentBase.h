@@ -16,6 +16,7 @@
 
 #include "ISegmentBase.h"
 #include "URLType.h"
+#include "FailoverContent.h"
 #include "AbstractMPDElement.h"
 
 namespace dash
@@ -30,6 +31,7 @@ namespace dash
 
                 const IURLType*     GetInitialization           ()  const;
                 const IURLType*     GetRepresentationIndex      ()  const;
+		const IFailoverContent* GetFailoverContent      ()  const;
                 uint32_t            GetTimescale                ()  const;
                 uint64_t            GetPresentationTimeOffset   ()  const;
                 const std::string&  GetIndexRange               ()  const;
@@ -37,6 +39,7 @@ namespace dash
 
                 void    SetInitialization           (URLType *initialization);
                 void    SetRepresentationIndex      (URLType *representationIndex);
+		void    SetFailoverContent          (FailoverContent *failoverContent);
                 void    SetTimescale                (uint32_t timescale);
                 void    SetPresentationTimeOffset   (uint64_t presentationTimeOffset);
                 void    SetIndexRange               (const std::string& indexRange);
@@ -45,6 +48,7 @@ namespace dash
             protected:
                 URLType     *initialization;
                 URLType     *representationIndex;
+		FailoverContent *failoverContent;
                 uint32_t    timescale;
                 uint64_t    presentationTimeOffset;
                 std::string indexRange;
