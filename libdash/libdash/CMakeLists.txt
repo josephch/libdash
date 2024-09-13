@@ -11,4 +11,6 @@ include_directories(include)
 file(GLOB_RECURSE libdash_source *.cpp)
 
 add_library(dash SHARED ${libdash_source})
-target_link_libraries(dash ${CURL_LIBRARIES} ${ZLIB_LIBRARIES} ${LIBXML2_LIBRARIES})
+target_link_libraries(dash ${CURL_LIBRARIES} ${ZLIB_LIBRARIES} ${LIBXML2_LIBRARIES} -pthread)
+install(TARGETS dash DESTINATION lib)
+
