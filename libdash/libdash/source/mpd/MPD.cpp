@@ -26,6 +26,7 @@ MPD::MPD    () :
         suggestedPresentationDelay(""),
         maxSegmentDuration(""),
         maxSubsegmentDuration("")
+       ,mpdPathBaseUrl(NULL)
 {
 }
 MPD::~MPD   ()
@@ -38,6 +39,12 @@ MPD::~MPD   ()
         delete(this->periods.at(i));
     for(size_t i = 0; i < this->baseUrls.size(); i++)
         delete(this->baseUrls.at(i));
+    if(NULL != mpdPathBaseUrl)
+        delete mpdPathBaseUrl;
+    for(size_t i = 0; i < this->tcpConnections.size(); i++)
+        delete(this->tcpConnections.at(i));
+    for(size_t i = 0; i < this->httpTransactions.size(); i++)
+        delete(this->httpTransactions.at(i));
 }
 
 const std::vector<IProgramInformation *>&   MPD::GetProgramInformations             () const 
