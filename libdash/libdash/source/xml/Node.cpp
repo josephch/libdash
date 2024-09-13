@@ -470,7 +470,14 @@ dash::mpd::SegmentTemplate*                 Node::ToSegmentTemplate     ()  cons
     {
         segmentTemplate->SetBitstreamSwitching(this->GetAttributeValue("bitstreamSwitching"));
     }
-
+    if (this->HasAttribute("availabilityTimeOffset"))
+    {
+        segmentTemplate->SetAvailabilityTimeOffset(strtod(this->GetAttributeValue("availabilityTimeOffset").c_str(), NULL));
+    }
+    if (this->HasAttribute("availabilityTimeComplete"))
+    {
+        segmentTemplate->SetAvailabilityTimeComplete(dash::helpers::String::ToBool(this->GetAttributeValue("availabilityTimeComplete")));
+    }	
     for(size_t i = 0; i < subNodes.size(); i++)
     {
 	if (subNodes.at(i)->GetName() == "FailoverContent")

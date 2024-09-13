@@ -18,8 +18,10 @@ SegmentTemplate::SegmentTemplate    () :
                     media(""),
                     index(""),
                     initialization(""),
-		    failoverContent(NULL),
-                    bitstreamSwitching("")
+		     failoverContent(NULL),
+                    bitstreamSwitching(""),
+                    availabilityTimeOffset(0.0f),
+                    availabilityTimeComplete(false)
 {
 }
 SegmentTemplate::~SegmentTemplate   ()
@@ -65,6 +67,22 @@ const std::string&  SegmentTemplate::GetbitstreamSwitching          ()  const
 void                SegmentTemplate::SetBitstreamSwitching          (const std::string& bitstreamSwitching)
 {
     this->bitstreamSwitching = bitstreamSwitching;
+}
+double		    SegmentTemplate::GetAvailabilityTimeOffset  ()  const
+{
+    return this->availabilityTimeOffset;
+}
+void                SegmentTemplate::SetAvailabilityTimeOffset  (double availabilityTimeOffset)
+{
+    this->availabilityTimeOffset = availabilityTimeOffset;
+}
+bool		    SegmentTemplate::GetAvailabilityTimeComplete  ()  const
+{
+    return this->availabilityTimeComplete;
+}
+void                SegmentTemplate::SetAvailabilityTimeComplete  (bool availabilityTimeComplete)
+{
+    this->availabilityTimeComplete = availabilityTimeComplete;
 }
 ISegment*           SegmentTemplate::ToInitializationSegment        (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth) const
 {

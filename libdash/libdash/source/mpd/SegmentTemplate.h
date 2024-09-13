@@ -40,12 +40,16 @@ namespace dash
                 ISegment*           GetIndexSegmentFromNumber   (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t number) const;
                 ISegment*           GetMediaSegmentFromTime     (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t time) const;
                 ISegment*           GetIndexSegmentFromTime     (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t time) const;
+                double              GetAvailabilityTimeOffset   ()  const;
+                bool                GetAvailabilityTimeComplete ()  const;
 
                 void    SetMedia                (const std::string& media);
                 void    SetIndex                (const std::string& index);
                 void    SetInitialization       (const std::string& initialization);
 		void    SetFailoverContent          (FailoverContent *failoverContent);
                 void    SetBitstreamSwitching   (const std::string& bitstreamSwichting);
+                void	 SetAvailabilityTimeOffset   (double availabilityTimeOffset);
+                void 	 SetAvailabilityTimeComplete (bool availabilityTimeComplete);
 
 	    protected:
 	    	FailoverContent *failoverContent;
@@ -59,6 +63,8 @@ namespace dash
                 std::string index;
                 std::string initialization;
                 std::string bitstreamSwitching;
+                double                          availabilityTimeOffset;
+                bool                            availabilityTimeComplete;            
         };
     }
 }

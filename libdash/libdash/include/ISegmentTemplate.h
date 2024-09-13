@@ -147,6 +147,18 @@ namespace dash
                  *  @return     a pointer to a dash::mpd::ISegment object
                  */
                 virtual ISegment*           GetIndexSegmentFromTime     (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth, uint32_t time) const = 0;
+           
+		/**
+                 *  Returns a double that specifies the  Availability Time Offset of Segment Index in all Media Segments of the Representation.\n
+                 *  @return     an double value
+                 */
+                virtual double              GetAvailabilityTimeOffset   ()  const = 0;
+                
+		/**
+                 *  Returns a bool that specifies the  Availability Time complete of Segment Index in all Media Segments of the Representation.\n
+                 *  @return     a bool value
+                 */
+                virtual bool                GetAvailabilityTimeComplete ()  const = 0;                
         };
     }
 }
