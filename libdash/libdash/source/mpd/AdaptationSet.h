@@ -22,6 +22,8 @@
 #include "SegmentTemplate.h"
 #include "ContentComponent.h"
 #include "Representation.h"
+#include "ProducerReferenceTime.h"
+#include "Resync.h"
 
 namespace dash
 {
@@ -43,6 +45,8 @@ namespace dash
                 ISegmentList*                           GetSegmentList                  ()  const;
                 ISegmentTemplate*                       GetSegmentTemplate              ()  const;
                 const std::vector<IRepresentation *>&   GetRepresentation               ()  const;
+                const std::vector<IResync *>&           GetResync                       ()  const;
+                const std::vector<IProducerReferenceTime *>&   GetProducerReferenceTime ()  const;
                 const std::string&                      GetXlinkHref                    ()  const;
                 const std::string&                      GetXlinkActuate                 ()  const;
                 uint32_t                                GetId                           ()  const;
@@ -77,6 +81,8 @@ namespace dash
                 void    SetSegmentList              (SegmentList *segmentList);
                 void    SetSegmentTemplate          (SegmentTemplate *segmentTemplate);
                 void    AddRepresentation           (Representation* representation);
+                void    AddResync                   (Resync* resync);
+                void    AddProducerReferenceTime    (ProducerReferenceTime* producerReferenceTime);
                 void    SetXlinkHref                (const std::string& xlinkHref);
                 void    SetXlinkActuate             (const std::string& xlinkActuate);
                 void    SetId                       (uint32_t id);
@@ -108,6 +114,8 @@ namespace dash
                 SegmentList                     *segmentList;
                 SegmentTemplate                 *segmentTemplate;
                 std::vector<Representation *>   representation;
+                std::vector<Resync *>            resyncs;
+                std::vector<ProducerReferenceTime *>   producerReferenceTimes;
                 std::string                     xlinkHref;
                 std::string                     xlinkActuate;
                 uint32_t                        id;

@@ -18,6 +18,8 @@
 #include "../helpers/String.h"
 #include "../mpd/AdaptationSet.h"
 #include "../mpd/BaseUrl.h"
+#include "../mpd/ServiceDescription.h"
+#include "../mpd/UTCTiming.h"
 #include "../mpd/ContentComponent.h"
 #include "../mpd/Descriptor.h"
 #include "../mpd/Metrics.h"
@@ -76,6 +78,11 @@ namespace dash
                 void                                        SetCommonValuesForMSeg  (dash::mpd::MultipleSegmentBase& object) const;
                 dash::mpd::AdaptationSet*                   ToAdaptationSet         ()  const;
                 dash::mpd::BaseUrl*                         ToBaseUrl               ()  const;
+                dash::mpd::ServiceDescription*              ToServiceDescription    ()  const;
+                dash::mpd::Scope*                           ToScope                 ()  const;
+                dash::mpd::Latency*                         ToLatency               ()  const;
+                dash::mpd::PlaybackRate*                    ToPlaybackRate          ()  const;
+                dash::mpd::UTCTiming*                       ToUTCTiming             ()  const;
                 dash::mpd::ContentComponent*                ToContentComponent      ()  const;
                 dash::mpd::Descriptor*                      ToDescriptor            ()  const;
                 dash::mpd::Metrics*                         ToMetrics               ()  const;
@@ -83,6 +90,8 @@ namespace dash
                 dash::mpd::ProgramInformation*              ToProgramInformation    ()  const;
                 dash::mpd::Range*                           ToRange                 ()  const;
                 dash::mpd::Representation*                  ToRepresentation        ()  const;
+                dash::mpd::Resync*                          ToResync                ()  const;
+                dash::mpd::ProducerReferenceTime*           ToProducerReferenceTime ()  const;
                 dash::mpd::SegmentBase*                     ToSegmentBase           ()  const;
                 dash::mpd::SegmentList*                     ToSegmentList           ()  const;
                 dash::mpd::SegmentTemplate*                 ToSegmentTemplate       ()  const;

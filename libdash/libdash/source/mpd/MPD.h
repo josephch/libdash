@@ -17,6 +17,8 @@
 #include "IMPD.h"
 #include "ProgramInformation.h"
 #include "BaseUrl.h"
+#include "ServiceDescription.h"
+#include "UTCTiming.h"
 #include "Period.h"
 #include "Metrics.h"
 #include "AbstractMPDElement.h"
@@ -36,6 +38,8 @@ namespace dash
                 const std::vector<IProgramInformation *>&   GetProgramInformations          ()  const;
                 const std::vector<IBaseUrl *>&              GetBaseUrls                     ()  const;
                 const std::vector<std::string>&             GetLocations                    ()  const;
+                const std::vector<IServiceDescription *>&   GetServiceDescriptions          ()  const;
+                const std::vector<IUTCTiming *>&            GetUTCTimings                   ()  const;
                 const std::vector<IPeriod *>&               GetPeriods                      ()  const;
                 const std::vector<IMetrics *>&              GetMetrics                      ()  const;
                 const std::string&                          GetId                           ()  const;
@@ -61,6 +65,8 @@ namespace dash
                 void    AddProgramInformation           (ProgramInformation *programInformation);
                 void    AddBaseUrl                      (BaseUrl *url);
                 void    AddLocation                     (const std::string& location);
+                void    AddServiceDescription           (ServiceDescription *serviceDescription);
+                void    AddUTCTiming                    (UTCTiming *utcTiming);
                 void    AddPeriod                       (Period *period);
                 void    AddMetrics                      (Metrics *metrics);
                 void    SetId                           (const std::string& id);
@@ -82,6 +88,8 @@ namespace dash
                 std::vector<ProgramInformation *>   programInformations;
                 std::vector<BaseUrl *>              baseUrls;
                 std::vector<std::string>            locations;
+                std::vector<ServiceDescription *>   serviceDescriptions;
+                std::vector<UTCTiming *>            utcTimings;
                 std::vector<Period *>               periods;
                 std::vector<Metrics *>              metrics;
                 std::string                         id;

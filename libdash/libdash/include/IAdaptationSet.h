@@ -60,6 +60,8 @@
 #include "ISegmentTemplate.h"
 #include "IRepresentation.h"
 #include "IRepresentationBase.h"
+#include "IProducerReferenceTime.h"
+#include "IResync.h"
 
 namespace dash
 {
@@ -144,6 +146,22 @@ namespace dash
                  *  @return     a reference to a vector of pointers to dash::mpd::IRepresentation objects
                  */
                 virtual const std::vector<IRepresentation *>&   GetRepresentation               ()  const = 0;
+
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IResync  objects that specifies a Resync .\n
+                 *  At least one Resync  element shall be present in each Adaptation Set. The actual element may however be part of a remote element.\n
+                 *  For more details refer to section 9.X.4.4. of <em>hhttps://dashif.org/docs/CR-Low-Latency-Live-r8.pdf</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IResync objects
+                 */
+                virtual const std::vector<IResync *>&   GetResync  ()  const = 0;
+
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IProducerReferenceTime  objects that specifies a ProducerReferenceTime .\n
+                 *  At least one ProducerReferenceTime  element shall be present in each Adaptation Set. The actual element may however be part of a remote element.\n
+                 *  For more details refer to section 9.x.4.3. of <em>hhttps://dashif.org/docs/CR-Low-Latency-Live-r8.pdf</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IProducerReferenceTime objects
+                 */
+                virtual const std::vector<IProducerReferenceTime *>&   GetProducerReferenceTime  ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies a reference to external <tt><b>AdaptationSet</b></tt> element.

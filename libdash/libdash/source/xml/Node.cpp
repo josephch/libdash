@@ -93,6 +93,108 @@ dash::mpd::BaseUrl*                         Node::ToBaseUrl             ()  cons
     baseUrl->AddRawAttributes(this->attributes);
     return baseUrl;
 }
+dash::mpd::ServiceDescription*                Node::ToServiceDescription             ()  const
+{
+    dash::mpd::ServiceDescription *serviceDesciption = new dash::mpd::ServiceDescription();
+
+    if(this->HasAttribute("id"))
+    {
+        serviceDesciption->SetId(this->GetAttributeValue("id"));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        if (subNodes.at(i)->GetName() == "Scope")
+        {
+            serviceDesciption->AddScope(subNodes.at(i)->ToScope());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "Latency")
+        {
+            serviceDesciption->AddLatency(subNodes.at(i)->ToLatency());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "PlaybackRate")
+        {
+            serviceDesciption->AddPlaybackRate(subNodes.at(i)->ToPlaybackRate());
+            continue;
+        }
+
+        serviceDesciption->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    serviceDesciption->AddRawAttributes(this->attributes);
+    return serviceDesciption;
+}
+dash::mpd::Scope*                Node::ToScope             ()  const
+{
+    dash::mpd::Scope *scope = new dash::mpd::Scope();
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {   
+        scope->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+    return scope;
+}
+dash::mpd::Latency*                Node::ToLatency             ()  const
+{
+    dash::mpd::Latency *latency = new dash::mpd::Latency();
+    if (this->HasAttribute("target"))
+    {
+        latency->SetTarget(strtoull(this->GetAttributeValue("target").c_str(),NULL,10));
+    }
+    if (this->HasAttribute("max"))
+    {
+        latency->SetMax(strtoull(this->GetAttributeValue("max").c_str(),NULL,10));
+    }
+    if (this->HasAttribute("min"))
+    {
+        latency->SetMin(strtoull(this->GetAttributeValue("min").c_str(),NULL,10));
+    }
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        latency->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+    latency->AddRawAttributes(this->attributes);
+    return latency;
+}
+dash::mpd::PlaybackRate*                Node::ToPlaybackRate             ()  const
+{
+    dash::mpd::PlaybackRate *playbackRate = new dash::mpd::PlaybackRate();
+    if (this->HasAttribute("max"))
+    {   
+        playbackRate->SetMax(atof(this->GetAttributeValue("max").c_str()));
+    }
+    if (this->HasAttribute("min"))
+    {
+        playbackRate->SetMin(atof(this->GetAttributeValue("min").c_str()));
+    }
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        playbackRate->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+    playbackRate->AddRawAttributes(this->attributes);
+    return playbackRate;
+}
+dash::mpd::UTCTiming*                Node::ToUTCTiming             ()  const
+{
+    dash::mpd::UTCTiming *utcTiming = new dash::mpd::UTCTiming();
+    if (this->HasAttribute("schemeIdUri"))
+    {
+        utcTiming->SetSchemeIdUri(this->GetAttributeValue("schemeIdUri"));
+    }
+    if (this->HasAttribute("value"))
+    {
+        utcTiming->SetValue(this->GetAttributeValue("value"));
+    }
+    
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        utcTiming->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+
+    utcTiming->AddRawAttributes(this->attributes);
+    return utcTiming;
+}
 dash::mpd::Descriptor*                      Node::ToDescriptor          ()  const
 {
     dash::mpd::Descriptor *descriptor = new dash::mpd::Descriptor();
@@ -429,6 +531,43 @@ dash::mpd::Representation*                  Node::ToRepresentation      ()  cons
     representation->AddRawAttributes(this->attributes);
     return representation;
 }
+dash::mpd::Resync*                   Node::ToResync       ()  const
+{
+    dash::mpd::Resync *resync = new dash::mpd::Resync();
+
+    if (this->HasAttribute("type"))
+    {
+        resync->SetType(this->GetAttributeValue("type"));
+    }
+    if (this->HasAttribute("dT"))
+    {
+        resync->SetdT(strtoul(this->GetAttributeValue("dT").c_str(), NULL, 10));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        resync->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+    resync->AddRawAttributes(this->attributes);
+    return resync;
+
+}
+dash::mpd::ProducerReferenceTime*                   Node::ToProducerReferenceTime       ()  const
+{
+    dash::mpd::ProducerReferenceTime *producerReferenceTime = new dash::mpd::ProducerReferenceTime();
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        if (subNodes.at(i)->GetName() == "UTCTiming")
+        {
+            producerReferenceTime->AddUTCTiming(subNodes.at(i)->ToUTCTiming());
+            continue;
+        }
+        producerReferenceTime->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+    producerReferenceTime->AddRawAttributes(this->attributes);
+    return producerReferenceTime;
+
+}
 dash::mpd::AdaptationSet*                   Node::ToAdaptationSet       ()  const
 {
     dash::mpd::AdaptationSet *adaptationSet = new dash::mpd::AdaptationSet();
@@ -563,6 +702,16 @@ dash::mpd::AdaptationSet*                   Node::ToAdaptationSet       ()  cons
         if (subNodes.at(i)->GetName() == "Representation")
         {
             adaptationSet->AddRepresentation(subNodes.at(i)->ToRepresentation());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "Resync")
+        {
+            adaptationSet->AddResync(subNodes.at(i)->ToResync());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "ProducerReferenceTime")
+        {
+            adaptationSet->AddProducerReferenceTime(subNodes.at(i)->ToProducerReferenceTime());
             continue;
         }
         if (subNodes.at(i)->GetName() != "FramePacking" && subNodes.at(i)->GetName() != "AudioChannelConfiguration" && subNodes.at(i)->GetName() != "ContentProtection")
@@ -827,6 +976,16 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
         if (subNodes.at(i)->GetName() == "Location")
         {
             mpd->AddLocation(subNodes.at(i)->GetText());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "ServiceDescription")
+        {
+            mpd->AddServiceDescription(subNodes.at(i)->ToServiceDescription());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "UTCTiming")
+        {
+            mpd->AddUTCTiming(subNodes.at(i)->ToUTCTiming());
             continue;
         }
         if (subNodes.at(i)->GetName() == "Period")

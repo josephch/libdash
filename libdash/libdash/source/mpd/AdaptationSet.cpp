@@ -57,6 +57,10 @@ AdaptationSet::~AdaptationSet   ()
         delete(this->baseURLs.at(i));
     for(size_t i = 0; i < this->representation.size(); i++)
         delete(this->representation.at(i));
+    for(size_t i = 0; i < this->resyncs.size(); i++)
+        delete(this->resyncs.at(i));
+    for(size_t i = 0; i < this->producerReferenceTimes.size(); i++)
+        delete(this->producerReferenceTimes.at(i));
 
     delete(segmentBase);
     delete(segmentList);
@@ -142,6 +146,22 @@ const std::vector<IRepresentation *>&   AdaptationSet::GetRepresentation        
 void                                    AdaptationSet::AddRepresentation                (Representation *representation)
 {
     this->representation.push_back(representation);
+}
+const std::vector<IResync *>&   AdaptationSet::GetResync                ()  const
+{
+    return (std::vector<IResync *> &) this->resyncs;
+}
+void                                    AdaptationSet::AddResync                (Resync *resync)
+{
+    this->resyncs.push_back(resync);
+}
+const std::vector<IProducerReferenceTime *>&   AdaptationSet::GetProducerReferenceTime                ()  const
+{
+    return (std::vector<IProducerReferenceTime *> &) this->producerReferenceTimes;
+}
+void                                    AdaptationSet::AddProducerReferenceTime                (ProducerReferenceTime *producerReferenceTime)
+{
+    this->producerReferenceTimes.push_back(producerReferenceTime);
 }
 const std::string&                      AdaptationSet::GetXlinkHref                     ()  const
 {

@@ -35,6 +35,10 @@ MPD::~MPD   ()
         delete(this->programInformations.at(i));
     for(size_t i = 0; i < this->metrics.size(); i++)
         delete(this->metrics.at(i));
+    for(size_t i = 0; i < this->serviceDescriptions.size(); i++)
+        delete(this->serviceDescriptions.at(i));
+    for(size_t i = 0; i < this->utcTimings.size(); i++)
+        delete(this->utcTimings.at(i));
     for(size_t i = 0; i < this->periods.size(); i++)
         delete(this->periods.at(i));
     for(size_t i = 0; i < this->baseUrls.size(); i++)
@@ -70,6 +74,22 @@ const std::vector<std::string>&             MPD::GetLocations                   
 void                                        MPD::AddLocation                        (const std::string& location)
 {
     this->locations.push_back(location);
+}
+const std::vector<IServiceDescription*>&    MPD::GetServiceDescriptions             () const
+{
+    return (std::vector<IServiceDescription*> &) this->serviceDescriptions;
+}
+void                                        MPD::AddServiceDescription              (ServiceDescription *serviceDescription)
+{
+    this->serviceDescriptions.push_back(serviceDescription);
+}
+const std::vector<IUTCTiming*>&    MPD::GetUTCTimings             () const
+{
+    return (std::vector<IUTCTiming*> &) this->utcTimings;
+}
+void                                        MPD::AddUTCTiming                         (UTCTiming *utcTiming)
+{
+    this->utcTimings.push_back(utcTiming);
 }
 const std::vector<IPeriod*>&                MPD::GetPeriods                         () const 
 {
