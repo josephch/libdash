@@ -47,3 +47,11 @@ void                              Event::SetId                 (uint32_t id)
 	this->id = id;
 }
 
+void                            Event::SetAttributes           (const std::map<std::string,std::string>& attributes)
+{
+    this->attributes = attributes;
+}
+const std::map<std::string,std::string> Event::GetRawAttributes()  const
+{
+    return this->attributes;
+}

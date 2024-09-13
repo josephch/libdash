@@ -28,6 +28,7 @@ namespace dash
                 const std::string&              GetSchemeIdUri  ()  const;
                 const std::string&              GetValue        ()  const;
                 const uint32_t                  GetTimescale    ()  const;
+		const std::map<std::string,std::string> GetRawAttributes()  const;
 
                 void    AddEvent                (IEvent *event);
                 void    SetXlinkHref            (const std::string& xlinkHref);
@@ -35,6 +36,7 @@ namespace dash
                 void    SetSchemeIdUri          (const std::string& schemeIdUri);
                 void    SetValue                (const std::string& value);
                 void    SetTimescale            (uint32_t timescale);
+		void    SetAttributes           (const std::map<std::string,std::string>& attributes);
 
             private:
                 std::vector<IEvent *>  events;
@@ -43,6 +45,7 @@ namespace dash
                 std::string            schemeIdUri;
                 std::string            value;
                 uint32_t               timescale;
+		std::map<std::string,std::string> attributes;
         };
     }
 }

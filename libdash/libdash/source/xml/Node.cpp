@@ -737,7 +737,10 @@ dash::mpd::EventStream*                    Node::ToEventStream              ()  
 {
     dash::mpd::EventStream *eventStream = new dash::mpd::EventStream();
     std::vector<Node *> subNodes = this->GetSubNodes();
-
+    if (this->GetAttributes().size())
+    {
+        eventStream->SetAttributes(this->GetAttributes());
+    }
     if (this->HasAttribute("xlink:href"))
     {
         eventStream->SetXlinkHref(this->GetAttributeValue("xlink:href"));
@@ -772,7 +775,10 @@ dash::mpd::Event*                    Node::ToEvent              ()  const
 {
     dash::mpd::Event *event = new dash::mpd::Event();
     std::vector<Node *> subNodes = this->GetSubNodes();
-
+    if (this->GetAttributes().size())
+    {
+        event->SetAttributes(this->GetAttributes());
+    }
     if (this->HasAttribute("presentationTime"))
     {
         event->SetPresentationTime(strtoull(this->GetAttributeValue("presentationTime").c_str(), NULL, 10));

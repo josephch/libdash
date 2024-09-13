@@ -76,3 +76,12 @@ void                            EventStream::SetTimescale   (uint32_t timescale)
 {
     this->timescale = timescale;
 }
+
+void                            EventStream::SetAttributes           (const std::map<std::string,std::string>& attributes)
+{
+    this->attributes = attributes;
+}
+const std::map<std::string,std::string> EventStream::GetRawAttributes()  const
+{
+    return this->attributes;
+}
