@@ -22,6 +22,7 @@
 #include "SegmentList.h"
 #include "SegmentTemplate.h"
 #include "AbstractMPDElement.h"
+#include "EventStream.h"
 
 namespace dash
 {
@@ -39,6 +40,7 @@ namespace dash
                 ISegmentTemplate*                       GetSegmentTemplate      ()  const;
                 const std::vector<IAdaptationSet *>&    GetAdaptationSets       ()  const;
                 const std::vector<ISubset *>&           GetSubsets              ()  const;
+                const std::vector<IEventStream *>&      GetEventStreams          ()  const;
                 const std::string&                      GetXlinkHref            ()  const;
                 const std::string&                      GetXlinkActuate         ()  const;
                 const std::string&                      GetId                   ()  const;
@@ -52,6 +54,7 @@ namespace dash
                 void    SetSegmentTemplate          (SegmentTemplate *segmentTemplate);
                 void    AddAdaptationSet            (AdaptationSet *AdaptationSet);
                 void    AddSubset                   (Subset *subset);
+                void    AddEventStream              (EventStream *eventStream);
                 void    SetXlinkHref                (const std::string& xlinkHref);
                 void    SetXlinkActuate             (const std::string& xlinkActuate);
                 void    SetId                       (const std::string& id);
@@ -66,6 +69,7 @@ namespace dash
                 SegmentTemplate                 *segmentTemplate;
                 std::vector<AdaptationSet *>    adaptationSets;
                 std::vector<Subset *>           subsets;
+                std::vector<EventStream *>      eventStreams;
                 std::string                     xlinkHref;
                 std::string                     xlinkActuate;
                 std::string                     id;

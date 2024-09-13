@@ -584,6 +584,65 @@ dash::mpd::Subset*                          Node::ToSubset              ()  cons
     subset->AddRawAttributes(this->attributes);
     return subset;
 }
+dash::mpd::EventStream*                    Node::ToEventStream              ()  const
+{
+    dash::mpd::EventStream *eventStream = new dash::mpd::EventStream();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("xlink:href"))
+    {
+        eventStream->SetXlinkHref(this->GetAttributeValue("xlink:href"));
+    }
+    if (this->HasAttribute("xlink:actuate"))
+    {
+        eventStream->SetXlinkActuate(this->GetAttributeValue("xlink:actuate"));
+    }
+    if (this->HasAttribute("schemeIdUri"))
+    {
+        eventStream->SetSchemeIdUri(this->GetAttributeValue("schemeIdUri"));
+    }
+    if (this->HasAttribute("value"))
+    {
+        eventStream->SetValue(this->GetAttributeValue("value"));
+    }
+    if (this->HasAttribute("timescale"))
+    {
+        eventStream->SetTimescale(strtoul(this->GetAttributeValue("timescale").c_str(), NULL, 10));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        if (subNodes.at(i)->GetName() == "Event")
+        {
+            eventStream->AddEvent(subNodes.at(i)->ToEvent());
+        }
+    }
+    return eventStream;
+}
+dash::mpd::Event*                    Node::ToEvent              ()  const
+{
+    dash::mpd::Event *event = new dash::mpd::Event();
+    std::vector<Node *> subNodes = this->GetSubNodes();
+
+    if (this->HasAttribute("presentationTime"))
+    {
+        event->SetPresentationTime(strtoull(this->GetAttributeValue("presentationTime").c_str(), NULL, 10));
+    }
+    if (this->HasAttribute("duration"))
+    {
+        event->SetDuration(strtoul(this->GetAttributeValue("duration").c_str(), NULL, 10));
+    }
+    if (this->HasAttribute("id"))
+    {
+        event->SetId(strtoul(this->GetAttributeValue("id").c_str(), NULL, 10));
+    }
+
+    for(size_t i = 0; i < subNodes.size(); i++)
+    {
+        event->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
+    }
+    return event;
+}
 dash::mpd::Period*                          Node::ToPeriod              ()  const
 {
     dash::mpd::Period *period = new dash::mpd::Period();
@@ -644,6 +703,11 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
         if (subNodes.at(i)->GetName() == "SegmentTemplate")
         {
             period->SetSegmentTemplate(subNodes.at(i)->ToSegmentTemplate());
+            continue;
+        }
+        if (subNodes.at(i)->GetName() == "EventStream")
+        {
+            period->AddEventStream(subNodes.at(i)->ToEventStream());
             continue;
         }
         period->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));

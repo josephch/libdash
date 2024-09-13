@@ -51,6 +51,7 @@
 #include "ISegmentTemplate.h"
 #include "IAdaptationSet.h"
 #include "ISubset.h"
+#include "IEventStream.h"
 
 namespace dash
 {
@@ -107,6 +108,12 @@ namespace dash
                  */
                 virtual const std::vector<ISubset *>&           GetSubsets              ()  const = 0;
 
+                /**
+                 *  Returns a reference to a vector of pointers to dash::mpd::IEventStream objects that specify EventStreams.\n
+                 *  For more details see section 5.10.2. of <em>ISO/IEC 23009-1, Part 1, 2014</em>.
+                 *  @return     a reference to a vector of pointers to dash::mpd::IEventStream objects
+                 */
+                virtual const std::vector<IEventStream *>&      GetEventStreams         ()  const = 0;
                 /**
                  *  Returns a reference to a string that specifies a reference to an external <tt><b>Period</b></tt> element.
                  *  @return     a reference to a string

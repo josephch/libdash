@@ -35,6 +35,8 @@
 #include "../mpd/SegmentURL.h"
 #include "../mpd/SubRepresentation.h"
 #include "../mpd/Subset.h"
+#include "../mpd/EventStream.h"
+#include "../mpd/Event.h"
 #include "../mpd/URLType.h"
 #include "IHTTPTransaction.h"
 
@@ -89,6 +91,8 @@ namespace dash
                 dash::mpd::SegmentURL*                      ToSegmentURL            ()  const;
                 dash::mpd::SubRepresentation*               ToSubRepresentation     ()  const;
                 dash::mpd::Subset*                          ToSubset                ()  const;
+                dash::mpd::EventStream*                     ToEventStream           ()  const;
+                dash::mpd::Event*                           ToEvent                 ()  const;
                 dash::mpd::URLType*                         ToURLType               (dash::metrics::HTTPTransactionType transActType)  const;
 
                 std::vector<Node *>                 subNodes;
