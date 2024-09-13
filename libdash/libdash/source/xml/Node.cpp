@@ -295,11 +295,11 @@ dash::mpd::FCS*                        Node::ToFCS            ()  const
 
     if (this->HasAttribute("t"))
     {
-        fcs->SetStartTime(strtoul(this->GetAttributeValue("t").c_str(), NULL, 10));
+        fcs->SetStartTime(strtoull(this->GetAttributeValue("t").c_str(), NULL, 10));
     }
     if (this->HasAttribute("d"))
     {
-        fcs->SetDuration(strtoul(this->GetAttributeValue("d").c_str(), NULL, 10));
+        fcs->SetDuration(strtoull(this->GetAttributeValue("d").c_str(), NULL, 10));
     }
 
     fcs->AddRawAttributes(this->attributes);
@@ -473,6 +473,11 @@ dash::mpd::SegmentTemplate*                 Node::ToSegmentTemplate     ()  cons
 
     for(size_t i = 0; i < subNodes.size(); i++)
     {
+	if (subNodes.at(i)->GetName() == "FailoverContent")
+	{
+		segmentTemplate->SetFailoverContent(subNodes.at(i)->ToFailoverContent());
+		continue;
+	}
         if (subNodes.at(i)->GetName() != "SegmentTimeline" && subNodes.at(i)->GetName() != "BitstreamSwitching" &&
             subNodes.at(i)->GetName() != "Initialization" && subNodes.at(i)->GetName() != "RepresentationIndex")
             segmentTemplate->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));

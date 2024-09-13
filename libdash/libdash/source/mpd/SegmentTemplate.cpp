@@ -18,6 +18,7 @@ SegmentTemplate::SegmentTemplate    () :
                     media(""),
                     index(""),
                     initialization(""),
+		    failoverContent(NULL),
                     bitstreamSwitching("")
 {
 }
@@ -48,6 +49,14 @@ const std::string&  SegmentTemplate::Getinitialization              ()  const
 void                SegmentTemplate::SetInitialization              (const std::string& initialization)
 {
     this->initialization = initialization;
+}
+const IFailoverContent*     SegmentTemplate::GetFailoverContent         ()  const
+{
+	return this->failoverContent;
+}
+void                SegmentTemplate::SetFailoverContent     (FailoverContent *failoverContent)
+{
+	this->failoverContent = failoverContent;
 }
 const std::string&  SegmentTemplate::GetbitstreamSwitching          ()  const
 {

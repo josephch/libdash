@@ -22,7 +22,7 @@
 #include "config.h"
 
 #include "IMultipleSegmentBase.h"
-
+#include "IFailoverContent.h"
 namespace dash
 {
     namespace mpd
@@ -54,6 +54,12 @@ namespace dash
                  *  @return     a reference to a string
                  */
                 virtual const std::string&  Getinitialization           ()  const = 0;
+
+
+		/**
+		*  Returns a pointer to a dash::mpd::IFailoverContent object that specifies the sections that contain failover content.		       *  @return     a pointer to dash::mpd::IFailoverContent object
+		*/
+		virtual const IFailoverContent*     GetFailoverContent          ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies the template to create the Bitstream Switching Segment. Neither \em \$Number\$ nor the \em \$Time\$ identifier shall be included.\n

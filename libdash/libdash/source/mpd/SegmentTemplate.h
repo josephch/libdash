@@ -17,6 +17,7 @@
 #include "ISegmentTemplate.h"
 #include "MultipleSegmentBase.h"
 #include "../helpers/String.h"
+#include "FailoverContent.h"
 
 namespace dash
 {
@@ -31,6 +32,7 @@ namespace dash
                 const std::string&  Getmedia                ()  const;
                 const std::string&  Getindex                ()  const;
                 const std::string&  Getinitialization       ()  const;
+		const IFailoverContent* GetFailoverContent  ()  const;
                 const std::string&  GetbitstreamSwitching   ()  const;
                 ISegment*           ToInitializationSegment     (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth) const;
                 ISegment*           ToBitstreamSwitchingSegment (const std::vector<IBaseUrl *>& baseurls, const std::string& representationID, uint32_t bandwidth) const;
@@ -42,8 +44,11 @@ namespace dash
                 void    SetMedia                (const std::string& media);
                 void    SetIndex                (const std::string& index);
                 void    SetInitialization       (const std::string& initialization);
+		void    SetFailoverContent          (FailoverContent *failoverContent);
                 void    SetBitstreamSwitching   (const std::string& bitstreamSwichting);
 
+	    protected:
+	    	FailoverContent *failoverContent;
             private:
                 std::string ReplaceParameters   (const std::string& uri, const std::string& representationID, uint32_t bandwidth, uint32_t number, uint32_t time) const;
                 void        FormatChunk         (std::string& uri, uint32_t number) const;
